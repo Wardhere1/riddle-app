@@ -11,26 +11,24 @@ function App() {
 
   const apiUrl = "https://api.api-ninjas.com/v1/riddles?limit=1";
 
-  useEffect(() => {
-    getRiddle();
-  }, []);
-
   const options = {
     method: "GET",
     headers: {
       "X-Api-Key": apiKey,
     },
   };
-
-  const getRiddle = async () => {
-    try {
-      const response = await axios.get(apiUrl, options);
-      const result = await response.data;
-      setRiddleData(result);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  useEffect(() => {
+    const getRiddle = async () => {
+      try {
+        const response = await axios.get(apiUrl, options);
+        const result = await response.data;
+        setRiddleData(result);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getRiddle();
+  }, []);
   console.log(riddleData);
 
   return (
