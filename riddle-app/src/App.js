@@ -29,7 +29,7 @@ function App() {
     };
     getRiddle();
   }, []);
-  console.log(riddleData);
+  // console.log(riddleData);
 
   return (
     <div className="App">
