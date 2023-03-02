@@ -4,7 +4,8 @@ import { useState } from "react";
 const Riddles = ({ riddleData }) => {
   const [userInput, setUserInput] = useState("");
   const [answer, setAnswer] = useState("");
-  const [answerStatus, setAnswerStatus] = useState(null);
+  const [answerStatus, setAnswerStatus] = useState();
+  const [background, setBackground] = useState("");
 
   const userAnswer = (e) => {
     const value = e.target.value;
@@ -12,32 +13,23 @@ const Riddles = ({ riddleData }) => {
     console.log(value);
   };
 
-  // const storeanswer = riddleData.map((data) => {
-  //   setAnswer(data.answer);
-  //   return 
-  // });
-
-
   const submitHandler = () => {
-riddleData.map((data)=> {
-  if(data.answer === userInput) {
-    setAnswerStatus(true);
-  }
-  else {
-    setAnswerStatus(false);
-
-  }
-})
-    //check if user input is === data.answer
-    // if it is change background color to green and return h1 tag "Congrat"
-    // if not correct return try agin H1 tag with red background
+    riddleData.map((data) => {
+      if (data.answer === userInput) {
+        setAnswerStatus("correct");
+        setBackground("correct");
+      } else {
+        setAnswerStatus("incorrect");
+        setBackground("incorrect");
+      }
+    });
   };
 
-  console.log(riddleData)
-  console.log(answer)
-  console.log(answerStatus)
+  console.log(riddleData);
+  console.log(answer);
+  console.log(answerStatus);
   return (
-    <div className="riddles-container">
+    <div className={background}>
       {riddleData.map((data) => {
         return (
           <div className="riddle">
@@ -51,7 +43,7 @@ riddleData.map((data)=> {
               onChange={userAnswer}
             ></input>
             <button onClick={submitHandler}>submit</button>
-           { answerStatus && <h3>{answerStatus?'correct': 'incorrect'}</h3>}
+            <h3>{answerStatus}</h3>
           </div>
         );
       })}
