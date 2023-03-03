@@ -31,7 +31,7 @@ function App() {
       }
     };
     getRiddle();
-  }, [next]);
+  },[next]);
 
 
   return (

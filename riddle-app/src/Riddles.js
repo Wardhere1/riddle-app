@@ -50,6 +50,7 @@ const Riddles = ({ riddleData,background,setBackground,next,setNext}) => {
           <div className="riddle">
             <h1> {data.title}</h1>
             <h2> {data.question}</h2>
+            <h2>{attempts === 3 ? `Answer: ${data.answer}` : ''}</h2>
             {/* {storeanswer} */}
             <input
               value={userInput}
