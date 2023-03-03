@@ -1,11 +1,12 @@
 import React from "react";
 import { useState } from "react";
 
-const Riddles = ({ riddleData }) => {
+const Riddles = ({ riddleData,background,setBackground,next,setNext}) => {
   const [userInput, setUserInput] = useState("");
   const [answer, setAnswer] = useState("");
   const [answerStatus, setAnswerStatus] = useState();
-  const [background, setBackground] = useState("");
+  const [attempts , setAttempts] = useState(0)
+ 
 
   const userAnswer = (e) => {
     const value = e.target.value;
@@ -18,12 +19,26 @@ const Riddles = ({ riddleData }) => {
       if (data.answer === userInput) {
         setAnswerStatus("correct");
         setBackground("correct");
+        setAttempts((prev)=> prev + 1 )
+        setUserInput('')
       } else {
         setAnswerStatus("incorrect");
         setBackground("incorrect");
+        setAttempts((prev)=> prev + 1 )
+        setUserInput('')
       }
     });
   };
+
+  const nextQuestion =()=> {
+    setNext((prev)=> prev + 1)
+    setBackground('')
+    setAnswerStatus('')
+    setAttempts(0)
+    setUserInput('')
+  }
+
+
 
   console.log(riddleData);
   console.log(answer);
@@ -37,13 +52,15 @@ const Riddles = ({ riddleData }) => {
             <h2> {data.question}</h2>
             {/* {storeanswer} */}
             <input
-              // value={userInput}
+              value={userInput}
               placeholder="try your luck"
               className="user-answer"
               onChange={userAnswer}
             ></input>
-            <button onClick={submitHandler}>submit</button>
+            <button disabled={attempts === 3} onClick={submitHandler}>Submit</button>
+            <button onClick={nextQuestion}>Next Question</button>
             <h3>{answerStatus}</h3>
+            <h3>{`Attempts: ${attempts}`}</h3>
           </div>
         );
       })}
